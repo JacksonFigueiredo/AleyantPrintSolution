@@ -25,5 +25,24 @@ namespace AleyantPrint.Tests
 
             Assert.Throws<ArgumentException>(() => _categoryService.AddCategory(category));
         }
+
+        [Fact]
+        public void AddCategory_WithDepthExceedingLimit_ThrowsException()
+        {
+            var parent = new Category { Name = "Parent", ParentName = null };
+            var child = new Category { Name = "Child", ParentName = "Parent" };
+
+            _mockRepository.Setup(r => r.Get(parent.Name)).Returns(parent);
+            _mockRepository.Setup(r => r.Get(child.ParentName)).Returns(child);
+
+            for (int i = 0; i < 10; i++)
+            {
+                var newChild = new Category { Name = "Child" + i, ParentName = child.Name };
+                _mockRepository.Setup(r => r.Get(newChild.Name)).Returns(newChild);
+                child = newChild;
+            }
+
+            Assert.Throws<ArgumentException>(() => _categoryService.AddCategory(new Category { Name = "TooDeep", ParentName = child.Name }));
+        }
     }
 }

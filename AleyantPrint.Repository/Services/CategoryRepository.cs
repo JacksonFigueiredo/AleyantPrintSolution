@@ -2,11 +2,6 @@
 using AleyantPrint.Domain.Models;
 using AleyantPrint.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AleyantPrint.Repository.Services
 {
@@ -19,7 +14,11 @@ namespace AleyantPrint.Repository.Services
             _context = context;
         }
 
-        public Category Get(string name) => _context.Categories.Include(c => c.Children) .FirstOrDefault(c => c.Name == name);
+        public Category Get(string name)
+        {
+            return _context.Categories.Include(c => c.Children).FirstOrDefault(c => c.Name == name);
+        }
+      
 
         public void Add(Category category)
         {
