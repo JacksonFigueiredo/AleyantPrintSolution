@@ -5,11 +5,13 @@ VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AleyantPrint.API", "AleyantPrint.API\AleyantPrint.API.csproj", "{BC44027A-9AF0-4A54-920D-B22C3E3AA672}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AleyantPrint.Services", "AleyantPrint.Services\AleyantPrint.Services.csproj", "{084B4A6A-FD4A-4C4E-9927-54A0C7D71D33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AleyantPrint.Services", "AleyantPrint.Services\AleyantPrint.Services.csproj", "{084B4A6A-FD4A-4C4E-9927-54A0C7D71D33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AleyantPrint.Domain", "AleyantPrint.Domain\AleyantPrint.Domain.csproj", "{3189AC13-CE58-406B-9174-A51D4C6B2360}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AleyantPrint.Domain", "AleyantPrint.Domain\AleyantPrint.Domain.csproj", "{3189AC13-CE58-406B-9174-A51D4C6B2360}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AleyantPrint.Repository", "AleyantPrint.Repository\AleyantPrint.Repository.csproj", "{6AE3B57F-D9D9-4304-82C5-002D4CB39919}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AleyantPrint.Repository", "AleyantPrint.Repository\AleyantPrint.Repository.csproj", "{6AE3B57F-D9D9-4304-82C5-002D4CB39919}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AleyantPrint.Tests", "AleyantPrint.Tests\AleyantPrint.Tests.csproj", "{08744FD8-2156-4FE6-84C5-AE89847A29A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6AE3B57F-D9D9-4304-82C5-002D4CB39919}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AE3B57F-D9D9-4304-82C5-002D4CB39919}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AE3B57F-D9D9-4304-82C5-002D4CB39919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08744FD8-2156-4FE6-84C5-AE89847A29A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08744FD8-2156-4FE6-84C5-AE89847A29A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08744FD8-2156-4FE6-84C5-AE89847A29A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08744FD8-2156-4FE6-84C5-AE89847A29A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
