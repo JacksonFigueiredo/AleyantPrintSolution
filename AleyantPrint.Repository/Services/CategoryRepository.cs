@@ -19,7 +19,7 @@ namespace AleyantPrint.Repository.Services
             _context = context;
         }
 
-        public Category Get(string name) => _context.Categories.Include(c => c.Children) .FirstOrDefault(c => c.Name == name); // To get child categories
+        public Category Get(string name) => _context.Categories.Include(c => c.Children) .FirstOrDefault(c => c.Name == name);
 
         public void Add(Category category)
         {
