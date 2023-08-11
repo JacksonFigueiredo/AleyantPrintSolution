@@ -1,4 +1,5 @@
 ﻿using AleyantPrint.Domain.Models;
+using AleyantPrint.Services.Interfaces;
 using AleyantPrint.Services.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +9,9 @@ namespace AleyantPrint.API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly CategoryService _service;
+        private readonly ICategoryService _service;
 
-        public CategoriesController(CategoryService service)
+        public CategoriesController(ICategoryService service)
         {
             _service = service;
         }
@@ -30,7 +31,7 @@ namespace AleyantPrint.API.Controllers
         public ActionResult<Category> GetAllCategory()
         {
             var category = _service.GetAllCategory();
-            if (category == null)
+            if (category.Count == 0)
             {
                 return NotFound();
             }

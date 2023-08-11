@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AleyantPrint.Domain\AleyantPrint.Domain.csproj" />
     <ProjectReference Include="..\AleyantPrint.Repository\AleyantPrint.Repository.csproj" />
   </ItemGroup>
 
