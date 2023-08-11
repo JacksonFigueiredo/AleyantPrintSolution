@@ -4,9 +4,6 @@ using AleyantPrint.Services.Interfaces;
 
 namespace AleyantPrint.Services.Services
 {
-    using System;
-    using System.Linq;
-
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _repository;
@@ -19,6 +16,11 @@ namespace AleyantPrint.Services.Services
         public Category GetCategory(string name)
         {
             return _repository.Get(name);
+        }
+
+        public List<Category> GetAllCategory()
+        {
+            return _repository.GetAll();
         }
 
         public void AddCategory(Category category)

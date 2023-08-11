@@ -2,6 +2,7 @@
 using AleyantPrint.Domain.Models;
 using AleyantPrint.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace AleyantPrint.Repository.Services
 {
@@ -40,6 +41,11 @@ namespace AleyantPrint.Repository.Services
                 _context.Categories.Remove(category);
                 _context.SaveChanges();
             }
+        }
+
+        public List<Category> GetAll()
+        {
+            return _context.Categories.ToList();
         }
     }
 }

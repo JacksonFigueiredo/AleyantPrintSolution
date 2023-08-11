@@ -10,6 +10,7 @@ namespace AleyantPrint.Repository.Interfaces
     public interface ICategoryRepository
     {
         Category Get(string name);
+        List<Category> GetAll();
         void Add(Category category);
         void Update(Category category);
         void Delete(string name);

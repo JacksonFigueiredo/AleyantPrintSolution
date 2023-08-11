@@ -1,6 +1,5 @@
 ﻿using AleyantPrint.Domain.Models;
 using AleyantPrint.Services.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AleyantPrint.API.Controllers
@@ -20,6 +19,17 @@ namespace AleyantPrint.API.Controllers
         public ActionResult<Category> GetCategory(string name)
         {
             var category = _service.GetCategory(name);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return Ok(category);
+        }
+
+        [HttpGet]
+        public ActionResult<Category> GetAllCategory()
+        {
+            var category = _service.GetAllCategory();
             if (category == null)
             {
                 return NotFound();
