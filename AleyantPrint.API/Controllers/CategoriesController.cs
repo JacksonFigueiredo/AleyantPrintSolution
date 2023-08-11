@@ -1,6 +1,5 @@
 ﻿using AleyantPrint.Domain.Models;
 using AleyantPrint.Services.Interfaces;
-using AleyantPrint.Services.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AleyantPrint.API.Controllers
@@ -17,9 +16,9 @@ namespace AleyantPrint.API.Controllers
         }
 
         [HttpGet("{name}")]
-        public ActionResult<Category> GetCategory(string name)
+        public async Task<ActionResult<Category>> GetCategoryAsync(string name)
         {
-            var category = _service.GetCategory(name);
+            var category = await _service.GetCategoryAsync(name);
             if (category == null)
             {
                 return NotFound();
@@ -28,18 +27,18 @@ namespace AleyantPrint.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Category> GetAllCategory()
+        public async Task<ActionResult<List<Category>>> GetAllCategoryAsync()
         {
-            var category = _service.GetAllCategory();
-            if (category.Count == 0)
+            var categories = await _service.GetAllCategoryAsync();
+            if (categories.Count == 0)
             {
                 return NotFound();
             }
-            return Ok(category);
+            return Ok(categories);
         }
 
         [HttpPost]
-        public ActionResult AddCategory([FromBody] Dictionary<string, string> categories)
+        public async Task<ActionResult> AddCategoryAsync([FromBody] Dictionary<string, string> categories)
         {
             try
             {
@@ -50,7 +49,7 @@ namespace AleyantPrint.API.Controllers
                         Name = pair.Value,
                         ParentName = pair.Key
                     };
-                    _service.AddCategory(category);
+                    await _service.AddCategoryAsync(category);
                 }
                 return NoContent();
             }
@@ -61,11 +60,11 @@ namespace AleyantPrint.API.Controllers
         }
 
         [HttpPut]
-        public ActionResult UpdateCategory(Category category)
+        public async Task<ActionResult> UpdateCategoryAsync(Category category)
         {
             try
             {
-                _service.UpdateCategory(category);
+                await _service.UpdateCategoryAsync(category);
                 return NoContent();
             }
             catch (Exception ex)
@@ -75,9 +74,9 @@ namespace AleyantPrint.API.Controllers
         }
 
         [HttpDelete("{name}")]
-        public ActionResult DeleteCategory(string name)
+        public async Task<ActionResult> DeleteCategoryAsync(string name)
         {
-            _service.DeleteCategory(name);
+            await _service.DeleteCategoryAsync(name);
             return NoContent();
         }
     }

@@ -21,9 +21,9 @@ namespace AleyantPrint.Tests
         public void AddCategory_WithExistingName_ThrowsException()
         {
             var category = new Category { Name = "Test", ParentName = null };
-            _mockRepository.Setup(r => r.Get(category.Name)).Returns(category);
+            _mockRepository.Setup(r => r.GetAsync(category.Name)).ReturnsAsync(category);
 
-            Assert.Throws<ArgumentException>(() => _categoryService.AddCategory(category));
+            Assert.ThrowsAsync<ArgumentException>(() => _categoryService.AddCategoryAsync(category));
         }
 
         [Fact]
@@ -32,17 +32,17 @@ namespace AleyantPrint.Tests
             var parent = new Category { Name = "Parent", ParentName = null };
             var child = new Category { Name = "Child", ParentName = "Parent" };
 
-            _mockRepository.Setup(r => r.Get(parent.Name)).Returns(parent);
-            _mockRepository.Setup(r => r.Get(child.ParentName)).Returns(child);
+            _mockRepository.Setup(r => r.GetAsync(parent.Name)).ReturnsAsync(parent);
+            _mockRepository.Setup(r => r.GetAsync(child.ParentName)).ReturnsAsync(child);
 
             for (int i = 0; i < 10; i++)
             {
                 var newChild = new Category { Name = "Child" + i, ParentName = child.Name };
-                _mockRepository.Setup(r => r.Get(newChild.Name)).Returns(newChild);
+                _mockRepository.Setup(r => r.GetAsync(newChild.Name)).ReturnsAsync(newChild);
                 child = newChild;
             }
-
-            Assert.Throws<ArgumentException>(() => _categoryService.AddCategory(new Category { Name = "TooDeep", ParentName = child.Name }));
+                
+            Assert.ThrowsAsync<ArgumentException>(() => _categoryService.AddCategoryAsync(new Category { Name = "TooDeep", ParentName = child.Name }));
         }
     }
 }

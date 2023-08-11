@@ -2,7 +2,6 @@
 using AleyantPrint.Domain.Models;
 using AleyantPrint.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 
 namespace AleyantPrint.Repository.Services
 {
@@ -15,37 +14,36 @@ namespace AleyantPrint.Repository.Services
             _context = context;
         }
 
-        public Category Get(string name)
+        public async Task<Category> GetAsync(string name)
         {
-            return _context.Categories.Include(c => c.Children).FirstOrDefault(c => c.Name == name);
+            return await _context.Categories.Include(c => c.Children).FirstOrDefaultAsync(c => c.Name == name);
         }
-      
 
-        public void Add(Category category)
+        public async Task AddAsync(Category category)
         {
             _context.Categories.Add(category);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Category category)
+        public async Task UpdateAsync(Category category)
         {
             _context.Categories.Update(category);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(string name)
+        public async Task DeleteAsync(string name)
         {
-            var category = _context.Categories.FirstOrDefault(c => c.Name == name);
+            var category = await _context.Categories.FirstOrDefaultAsync(c => c.Name == name);
             if (category != null)
             {
                 _context.Categories.Remove(category);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
 
-        public List<Category> GetAll()
+        public async Task<List<Category>> GetAllAsync()
         {
-            return _context.Categories.ToList();
+            return await _context.Categories.ToListAsync();
         }
     }
 }

@@ -4,10 +4,10 @@ namespace AleyantPrint.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Category GetCategory(string name);
-        List<Category> GetAllCategory();
-        void AddCategory(Category category);
-        void UpdateCategory(Category category);
-        void DeleteCategory(string name);
+        Task<Category> GetCategoryAsync(string name);
+        Task<List<Category>> GetAllCategoryAsync();
+        Task AddCategoryAsync(Category category);
+        Task UpdateCategoryAsync(Category category);
+        Task DeleteCategoryAsync(string name);
     }
 }

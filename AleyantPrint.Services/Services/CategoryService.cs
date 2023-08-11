@@ -7,47 +7,48 @@ namespace AleyantPrint.Services.Services
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _repository;
+        private readonly ReaderWriterLockSlim _rwLock = new ReaderWriterLockSlim();
 
         public CategoryService(ICategoryRepository repository)
         {
             _repository = repository;
         }
 
-        public Category GetCategory(string name)
+        public async Task<Category> GetCategoryAsync(string name)
         {
-            return _repository.Get(name);
+            return await _repository.GetAsync(name); // Assuming the method in _repository is named GetAsync.
         }
 
-        public List<Category> GetAllCategory()
+        public async Task<List<Category>> GetAllCategoryAsync()
         {
-            return _repository.GetAll();
+            return await _repository.GetAllAsync();
         }
 
-        public void AddCategory(Category category)
+        public async Task AddCategoryAsync(Category category)
         {
             ValidateCategory(category);
-            _repository.Add(category);
+            await _repository.AddAsync(category);
         }
 
-        public void UpdateCategory(Category category)
+        public async Task UpdateCategoryAsync(Category category)
         {
             ValidateCategory(category);
-            _repository.Update(category);
+            await _repository.UpdateAsync(category);
         }
 
-        public void DeleteCategory(string name)
+        public async Task DeleteCategoryAsync(string name)
         {
-            _repository.Delete(name);
+            await _repository.DeleteAsync(name);
         }
 
         private void ValidateCategory(Category category)
         {
-            if (_repository.Get(category.Name) != null)
+            if (_repository.GetAsync(category.Name).Result != null)
                 throw new ArgumentException($"Category with the name {category.Name} already exists.");
 
             if (!string.IsNullOrEmpty(category.ParentName))
             {
-                var parentCategory = _repository.Get(category.ParentName);
+                var parentCategory = _repository.GetAsync(category.ParentName).Result;
                 if (parentCategory == null)
                     throw new ArgumentException($"Parent category {category.ParentName} does not exist.");
 
@@ -64,8 +65,16 @@ namespace AleyantPrint.Services.Services
 
             while (current != null)
             {
+                _rwLock.EnterReadLock();
+                try
+                {
+                    current = _repository.GetAsync(current.ParentName).Result; // Blocking call! Might consider rethinking for better asynchronicity.
+                }
+                finally
+                {
+                    _rwLock.ExitReadLock();
+                }
                 depth++;
-                current = _repository.Get(current.ParentName);
             }
 
             return depth;
